@@ -8,6 +8,7 @@ public class DialogueTreeEditorWindow : EditorWindow
 
     //path in unity UI to access the tool window
     [MenuItem("Window/Tools/Dialogue Tree Maker")]
+    //static method belongs to the whole class
     public static void OpenWindow()
     {
         //makes the editor window for the tool
