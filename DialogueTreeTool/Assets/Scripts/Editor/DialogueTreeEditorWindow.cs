@@ -29,6 +29,16 @@ public class DialogueTreeEditorWindow : EditorWindow
 
     private void CreateToolbar()
     {
+        TextField filenameTextField = new TextField()
+        {
+            value = "File Name", label = "Filename"
+        };
+
+        Button saveTreeButton = new Button()
+        {
+            text = "Save", clickable = new Clickable(() => LoadTree()),//<change this to the save function!!!
+        };
+
         Button loadTreeButton = new Button()
         {
             text = "Load", clickable = new Clickable(() => LoadTree()),
@@ -41,6 +51,8 @@ public class DialogueTreeEditorWindow : EditorWindow
         };
 
         Toolbar toolbar = new Toolbar();
+        toolbar.Add(filenameTextField);
+        toolbar.Add(saveTreeButton);
         toolbar.Add(loadTreeButton);
         toolbar.Add(clearTreeButton);
         rootVisualElement.Add(toolbar);
