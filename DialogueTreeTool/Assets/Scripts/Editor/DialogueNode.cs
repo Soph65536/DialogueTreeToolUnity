@@ -36,7 +36,7 @@ public class DialogueNode : Node
         UpdateTitle();
 
         //add input/output ports
-        Port inputPort = InstantiatePort(Orientation.Vertical, Direction.Input, Port.Capacity.Single, null);
+        Port inputPort = InstantiatePort(Orientation.Vertical, Direction.Input, Port.Capacity.Multi, null);
         inputPort.portName = "Input";
         inputContainer.Add(inputPort);
 
@@ -58,7 +58,7 @@ public class DialogueNode : Node
 
         //create and update icon and speech text before drawing them
         icon = new Image();
-        speechText = new TextField() { isReadOnly = true, };
+        speechText = new TextField();
         UpdateIconAndSpeech();
 
         //icon image
@@ -95,7 +95,7 @@ public class DialogueNode : Node
     private void UpdateIconAndSpeech()
     {
         //icon update
-        const float iconWidthHeight = 64f;
+        const float iconWidthHeight = 16f;
 
         if(dialogueItem != null)
         {
