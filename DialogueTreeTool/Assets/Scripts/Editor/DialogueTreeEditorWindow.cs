@@ -36,7 +36,7 @@ public class DialogueTreeEditorWindow : EditorWindow
 
         Button saveTreeButton = new Button()
         {
-            text = "Save", clickable = new Clickable(() => LoadTree()),//<change this to the save function!!!
+            text = "Save", clickable = new Clickable(() => DialogueSaveUtility.Save(filenameTextField.value, graphView)),
         };
 
         Button loadTreeButton = new Button()
@@ -58,15 +58,15 @@ public class DialogueTreeEditorWindow : EditorWindow
         rootVisualElement.Add(toolbar);
     }
 
+    private void LoadTree()
+    {
+        ClearTree();
+        DialogueSaveUtility.Load(graphView);
+    }
+
     private void ClearTree()
     {
         rootVisualElement.Clear();
         CreateGUI();
-    }
-
-    private void LoadTree()
-    {
-        ClearTree();
-        //open a graph file
     }
 }

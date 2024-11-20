@@ -63,11 +63,12 @@ public class DialogueNode : Node
 
         //icon image
         speechContainer.Add(icon);
+        speechText.RegisterValueChangedCallback(evt => ChangeSpeech(evt));
 
         //speech text in foldout
         Foldout textFoldout = new Foldout()
         {
-            text = "Speech",
+            text = "Speech \n(Modifying this will also change the Dialogue Item)",
         };
         textFoldout.Add(speechText);
         speechContainer.Add(textFoldout);
@@ -109,7 +110,12 @@ public class DialogueNode : Node
         }
 
         //speech update
-        speechText.value = dialogueItem != null ? dialogueItem.DialogueTextRO : "Empty";
+        speechText.value = dialogueItem != null ? dialogueItem.DialogueText : "Empty";
+    }
+
+    private void ChangeSpeech(ChangeEvent<string> evt)
+    {
+        if(dialogueItem != null) { dialogueItem.DialogueText = speechText.value; }
     }
 
     private void ChangeDialogueItem(ChangeEvent<UnityEngine.Object> evt)

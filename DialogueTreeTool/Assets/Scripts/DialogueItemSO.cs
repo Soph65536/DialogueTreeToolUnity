@@ -8,12 +8,13 @@ public class DialogueItem : ScriptableObject
 {
     //inspector editable variables
     [SerializeField] private String NameText;
-    [SerializeField] private String DialogueText;
     [SerializeField] private Sprite Icon;
 
     //for each variable create a public variable that is always set to the private one
     //which results in readonly data
     public string NameTextRO { get { return NameText; } }
-    public string DialogueTextRO { get { return DialogueText; } }
     public Sprite IconRO { get { return Icon; } }
+
+    //dialogue text is modifiable
+    public string DialogueText = "You can modify this text within the Dialogue Item or in the Dialogue Tree Graph!";
 }
