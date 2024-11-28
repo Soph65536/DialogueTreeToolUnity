@@ -77,8 +77,6 @@ public static class DialogueSaveUtility
             {
                 foreach (var prevnode in previousnodesguids)
                 {
-                    //add each node within nodes based on guid of the dialoguenode's previousnodes so it references a node in the editor
-                    //i cant explain this well
                     previousnodes.Add(nodes[StringToGUID(prevnode)]);
                 }
 

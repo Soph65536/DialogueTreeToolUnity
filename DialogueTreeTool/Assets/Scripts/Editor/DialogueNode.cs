@@ -83,7 +83,18 @@ public class DialogueNode : Node
     private void UpdateTitle()
     {
         titleContainer.Clear();
-        //create new textfield depending on if there is a dialogue item
+        //create new textfields depending on if there is a dialogue item
+
+        TextField whetherPlayerText = new TextField()
+        {
+            value = dialogueItem != null ?
+            (dialogueItem.IsPlayerTextOptionRO ? "Player Text\n" : "NPC Text\n")
+            : string.Empty,
+            isReadOnly = true,
+        };
+        //set title container to the text field we made
+        titleContainer.Insert(0, whetherPlayerText);
+
         TextField nodeName = new TextField()
         {
             value = dialogueItem != null ? dialogueItem.NameTextRO : "Empty",
