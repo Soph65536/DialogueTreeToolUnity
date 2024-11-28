@@ -26,14 +26,14 @@ public static class DialogueSaveUtility
             {
                 //create and initialise save data for each node
                 DialogueSaveData dialogue = new DialogueSaveData();
-                dialogue.Init(node.guid, node.dialogueItem, node.GetPosition().position);
+                DialogueSaveDataInit(dialogue, node.guid, node.dialogueItem, node.GetPosition().position);
 
                 List<string> previousNodes = GetPreviousNode(node);
                 if (previousNodes != null)
                 {
                     foreach (var previousNode in previousNodes)
                     {
-                        dialogue.SetPreviousNode(StringToGUID(previousNode));
+                        SetPreviousNode(dialogue, StringToGUID(previousNode));
                     }
                 }
 
@@ -70,7 +70,7 @@ public static class DialogueSaveUtility
         {
             Port inputPort = node.Value.inputContainer.ElementAt(0) as Port;
 
-            List<string> previousnodesguids = saveData.LinearSearchForGUID(node.Key).previousguids;
+            List<string> previousnodesguids = LinearSearchForGUID(saveData.dialogueData, node.Key).previousguids;
             List<DialogueNode> previousnodes = new List<DialogueNode>();
 
             if (previousnodesguids != null)
@@ -129,5 +129,30 @@ public static class DialogueSaveUtility
             throw new ArgumentException("Invalid GUID: cannot convert from string to GUID");
         }
         return guid;
+    }
+
+
+    //for dialogue tree save adta
+
+    public static void DialogueSaveDataInit(DialogueSaveData dialogueSaveData, GUID guidParam, DialogueItem dialogueItemParam, Vector2 positionParam)
+    {
+        dialogueSaveData.guid = guidParam.ToString();
+        dialogueSaveData.dialogueItem = dialogueItemParam;
+        dialogueSaveData.position = positionParam;
+        dialogueSaveData.previousguids = new List<string>();
+    }
+
+    public static void SetPreviousNode(DialogueSaveData dialogueSaveData, GUID previousguidParam)
+    {
+        dialogueSaveData.previousguids.Add(previousguidParam.ToString());
+    }
+
+    public static DialogueSaveData LinearSearchForGUID(List<DialogueSaveData> dialogueData, GUID guidParam)
+    {
+        foreach (DialogueSaveData dialogue in dialogueData)
+        {
+            if (dialogue.guid == guidParam.ToString()) { return dialogue; }
+        }
+        return null;
     }
 }

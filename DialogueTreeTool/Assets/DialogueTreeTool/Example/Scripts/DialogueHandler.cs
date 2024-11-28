@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class DialogueHandler : MonoBehaviour
 {
-    private DialogueTreeData dialogueTreeData;
+    private DialogueTreeSaveData dialogueTreeData;
 
-    public DialogueData currentData = null;
-    public List<DialogueData> currentPlayerData = new List<DialogueData>();
+    public DialogueSaveData currentData = null;
+
+    [SerializeField] private GameObject PlayerTextPrefab;
+    [SerializeField] private GameObject PlayerTextContainer;
 
     private void Awake()
     {
@@ -16,11 +18,10 @@ public class DialogueHandler : MonoBehaviour
 
     private void GetTreeData()
     {
-        dialogueTreeData = Resources.Load("Conversation") as DialogueTreeData; //loads the example conversation from resources
-        Debug.Log(dialogueTreeData.dialogueData.Count);
+        dialogueTreeData = Resources.Load("Conversation") as DialogueTreeSaveData; //loads the example conversation from resources
 
         //first foreach loop to find what the root dialogue is
-        foreach (var dialogueData in dialogueTreeData.dialogueData)
+        foreach (DialogueSaveData dialogueData in dialogueTreeData.dialogueData)
         {
             if (dialogueData.previousguids.Count == 0) { currentData = dialogueData; }
         }
@@ -29,18 +30,21 @@ public class DialogueHandler : MonoBehaviour
         SetPlayerDialogueOptions();
     }
 
-    public void GetNextDialogueData(DialogueData playerOption)
+    public void GetNextDialogueData(DialogueSaveData playerOption)
     {
-        currentData = null;
-        currentPlayerData = new List<DialogueData>();
+        currentData = null; //set currentdata to empty
+        foreach(Transform child in PlayerTextContainer.transform) { Destroy(child.gameObject); } //remove all children within player text
 
-        foreach (DialogueData dialogueData in dialogueTreeData.dialogueData)
+        foreach (DialogueSaveData dialogueData in dialogueTreeData.dialogueData)
         {
             if (dialogueData.previousguids.Contains(playerOption.guid) && !dialogueData.dialogueItem.IsPlayerTextOptionRO)
             {
                 currentData = dialogueData;
             }
         }
+
+        //stop game if no more data
+        if(currentData == null) { Application.Quit(); }
 
         //update player options
         SetPlayerDialogueOptions();
@@ -52,11 +56,12 @@ public class DialogueHandler : MonoBehaviour
         if (currentData != null)
         {
             //foreach loop to find which playeroptions are children of the current item
-            foreach (DialogueData dialogueData in dialogueTreeData.dialogueData)
+            foreach (DialogueSaveData dialogueData in dialogueTreeData.dialogueData)
             {
                 if (dialogueData.previousguids.Contains(currentData.guid) && dialogueData.dialogueItem.IsPlayerTextOptionRO)
                 {
-                    currentPlayerData.Add(dialogueData);
+                    GameObject playeroption = Instantiate(PlayerTextPrefab, PlayerTextContainer.transform);
+                    playeroption.GetComponent<PlayerOptionDisplay>().PlayerOption = dialogueData;
                 }
             }
         }

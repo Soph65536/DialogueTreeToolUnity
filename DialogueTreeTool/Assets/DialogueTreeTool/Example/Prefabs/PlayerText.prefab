@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6459315232106443103}
   - component: {fileID: 5224821391917634683}
   - component: {fileID: 5874490806390461093}
+  - component: {fileID: 8829106549323416209}
   m_Layer: 5
   m_Name: PlayerText
   m_TagString: Untagged
@@ -121,7 +122,38 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5224821391917634683}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8829106549323416209}
+        m_TargetAssemblyTypeName: PlayerOptionDisplay, Assembly-CSharp
+        m_MethodName: onPress
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &8829106549323416209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1083917672071209835}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5e7f99054a17b84695adfbd1a13a8a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlayerOption:
+    guid: 
+    dialogueItem: {fileID: 0}
+    position: {x: 0, y: 0}
+    previousguids: []
+  dialogueHandler: {fileID: 0}
+  PlayerImage: {fileID: 4927189057109044624}
 --- !u!1 &5254749587135188839
 GameObject:
   m_ObjectHideFlags: 0

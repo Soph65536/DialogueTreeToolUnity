@@ -4,17 +4,19 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueDisplay : MonoBehaviour
+public class NPCTextDisplay : MonoBehaviour
 {
     private DialogueHandler dialogueHandler;
 
     [SerializeField] private TextMeshProUGUI NPCNameText;
     [SerializeField] private TextMeshProUGUI NPCSpeechText;
-    [SerializeField] private Image NPCImage;
+    private Image NPCImage;
 
     private void Awake()
     {
-        dialogueHandler = GetComponent<DialogueHandler>();
+        dialogueHandler = GetComponentInParent<DialogueHandler>();
+
+        NPCImage = GetComponentInChildren<Image>();
     }
 
     private void Update()
